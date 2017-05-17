@@ -5,6 +5,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import ca.uwaterloo.sensortoy.LineGraphView;
 public class Lab0_201_15 extends AppCompatActivity {
 
     private LinearLayout ll;
+    private SensorEventListener[] sensors;
     private LightSensorEventListener lsel;
     private MagneticFieldEventListener mfel;
     private AccelerometerEventListener ael;
@@ -119,21 +121,22 @@ public class Lab0_201_15 extends AppCompatActivity {
         PrintWriter myPTR = null;
         filesCount++;
         try{
-            myFile = new File(getExternalFilesDir("CSV"), "output.txt");
+            myFile = new File(getExternalFilesDir("CSV"), String.format("Output%d.csv", filesCount));
 
             myPTR = new PrintWriter(myFile);
 
             for (float[] vals: dataAccel){
                 int i = 0;
-                myPTR.println(String.format("(%.2f, %.2f, %.2f)",vals[0],vals[1],vals[2]));
-                myPTR.print(",");
+                if(vals != null) {
+                    myPTR.print(String.format("(%.2f - %.2f - %.2f)", vals[0], vals[1], vals[2]));
+                    myPTR.print(",");
+                }
             }
-            myPTR.println("test");
-            System.out.print("no e");
+
 
         }
         catch (IOException e){
-            System.out.print("EXEPTON " + e);
+            Log.d("CSV: ", "File access failed.");
         }
         finally {
             if (myPTR != null){
