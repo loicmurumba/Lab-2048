@@ -33,7 +33,7 @@ public class MagneticFieldEventListener implements SensorEventListener {
         if (se.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             String s = String.format("(%.2f, %.2f, %.2f)", se.values[0], se.values[1], se.values[2]);
             output.setText(s);
-            if ((se.values[0] + se.values[1] + se.values[2]) > (maxval[0] + maxval[1] + maxval[2])){
+            if (Math.sqrt(Math.pow(se.values[0], 2) + Math.pow(se.values[1], 2) + Math.pow(se.values[2], 2)) > Math.sqrt(Math.pow(maxval[1], 2) + Math.pow(maxval[0], 2) + Math.pow(maxval[2], 2))){
                 maxval = new float[] {se.values[0], se.values[1], se.values[2]};
             }
             String m = String.format("(%.2f, %.2f, %.2f)", maxval[0], maxval[1], maxval[2]);

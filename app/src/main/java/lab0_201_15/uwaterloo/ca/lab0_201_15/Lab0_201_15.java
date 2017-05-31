@@ -1,5 +1,6 @@
 package lab0_201_15.uwaterloo.ca.lab0_201_15;
 
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
@@ -105,6 +106,8 @@ public class Lab0_201_15 extends AppCompatActivity {
             }
         });
         for (TextView text : texts) {
+            text.setTextColor(Color.rgb(255,255,255));
+            text.setGravity(View.TEXT_ALIGNMENT_GRAVITY);
             ll.addView(text);
         }
 
